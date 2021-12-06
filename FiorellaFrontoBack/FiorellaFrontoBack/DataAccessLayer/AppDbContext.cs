@@ -23,7 +23,8 @@ namespace FiorellaFrontoBack.DataAccessLayer
         public DbSet<Bio> Bio { get; set; }
         public DbSet<Logo> Logo { get; set; }
         public DbSet<Blog> Blog { get; set; }
+        public DbSet<BlogTitle> BlogTitle { get; set; }
 
-       
+
     }
 }

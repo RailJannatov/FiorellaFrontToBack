@@ -22,12 +22,15 @@ namespace FiorellaFrontoBack.Controllers
             var sliderImage = _dbcontext.SliderImages.ToList();
             var products = _dbcontext.Products.Include(x=>x.Category).ToList();
             var category = _dbcontext.Categories.ToList();
+            var blogTitle = _dbcontext.BlogTitle.SingleOrDefault();
             return View(new HomeViewModel
             {
                 Slider = slider,
                 SliderImages =sliderImage,
                 Categories =category,
-                Products = products
+                Products = products,
+                BlogTitle = blogTitle
+
             }
             );
         }

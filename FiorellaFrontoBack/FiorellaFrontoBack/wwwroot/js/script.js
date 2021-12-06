@@ -8,34 +8,6 @@ $(document).ready(function () {
                 success: function (res) {
                     $("#product").append(res);
                     skip += 4;
-
-                    //for (var item of res) {
-                    //    var divImg = $("<div>").addClass("img");
-                    //    var a = $("<a>");
-                    //    var img = $("<img>").addClass("img-fluid").attr("src", "/img/" + item.image);
-
-                    //    a.append(img);
-                    //    divImg.append(a);
-
-                    //    var divTitle = $("<div>").addClass("title mt-3");
-                    //    var h6 = $("<h6>").text(item.name);
-
-                    //    divTitle.append(h6);
-
-                    //    var divPrice = $("<div>").addClass("price");
-                    //    var spanCart = $("<span>").addClass("text-black-50").text("Add to cart");
-                    //    var spanPrice = $("<span>").addClass("text-black-50").text("$" + item.price);
-
-                    //    divPrice.append(spanCart, spanPrice);
-
-                    //    var divProduct = $("<div>").addClass("product-item text-center").attr("data-id", item.category.name.toLowerCase());
-
-                    //    divProduct.append(divImg, divTitle, divPrice);
-
-                    //    var divCol = $("<div>").addClass("col-sm-6 col-md-4 col-lg-3 mt-3");
-
-                    //    divCol.append(divProduct);          
-                               
                 }
             });
         }
