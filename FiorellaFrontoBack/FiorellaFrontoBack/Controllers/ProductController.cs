@@ -31,5 +31,5 @@ namespace FiorellaFrontoBack.Controllers
             return PartialView("_ProductPartial", products);
 
         }
-    }
+    } 
 }

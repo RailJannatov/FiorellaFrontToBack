@@ -13,5 +13,7 @@ namespace FiorellaFrontoBack.ViewModels
         public List<Category> Categories { get; set; }
         public List<Product> Products { get; set; }
         public BlogTitle BlogTitle { get; set; }
+        public FlowerTitle  FlowerTitle { get; set; }
+        public List<FlowerItem> FlowerItems { get; set; }
     }
 }

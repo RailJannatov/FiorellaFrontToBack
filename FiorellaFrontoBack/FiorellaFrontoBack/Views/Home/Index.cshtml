@@ -70,26 +70,7 @@
         </div>
         <div class="row">
             @await Component.InvokeAsync("Product") 
-            @*<partial name="_ProductPartial" model="homeViewModel.Products"/>*@
-            @*@foreach (var item in homeViewModel.Products)
-            {
-                <div class="col-sm-6 col-md-4 col-lg-3 mt-3">
-                    <div class="product-item text-center" data-id="@item.Category.Name.ToLower()">
-                        <div class="img">
-                            <a href="">
-                                <img src="img/@item.Image" class="img-fluid" alt="">
-                            </a>
-                        </div>
-                        <div class="title mt-3">
-                            <h6>@item.Name</h6>
-                        </div>
-                        <div class="price">
-                            <span class="text-black-50">Add to cart</span>
-                            <span class="text-black-50">$@item.Price</span>
-                        </div>
-                    </div>
-                </div>
-            }*@
+         
         </div>
     </div>
 </section>
@@ -143,17 +124,17 @@
         <div class="row py-5">
             <div class="offset-lg-3 col-lg-6">
                 <div class="section-title">
-                    <h1>Flower Experts</h1>
+                    <h1>@homeViewModel.FlowerTitle.Title</h1>
                     <p class="text-black-50">
-                        A perfect blend of creativity, energy, communication, happiness and
-                        love. Let us arrange
-                        a smile for you.
+                   @homeViewModel.FlowerTitle.Subtitle
                     </p>
                 </div>
             </div>
         </div>
         <div class="row pb-5">
-            <div class="col-md-6 col-lg-3">
+         
+            @await Component.InvokeAsync("FlowerExpertItem")
+            @*<div class="col-md-6 col-lg-3">
                 <div class="item text-center">
                     <div class="img">
                         <img src="img/h3-team-img-1.png" class="img-fluid rounded-circle" alt="">
@@ -196,7 +177,7 @@
                         <p class="text-black-50">Florist</p>
                     </div>
                 </div>
-            </div>
+            </div>*@
             <div class="col-lg-3"></div>
             <div class="col-lg-3"></div>
             <div class="col-lg-3"></div>

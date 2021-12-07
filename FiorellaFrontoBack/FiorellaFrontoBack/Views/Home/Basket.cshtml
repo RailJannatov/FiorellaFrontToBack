@@ -1,0 +1,48 @@
+﻿@model List<BasketViewModel>
+@{
+    ViewData["Title"] = "Basket";
+    decimal totalAmount;
+}
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Count</th>
+            <th scope="col">Total</th>
+
+
+            <th scope="col">Delete</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th><img src="~/img/@item.Image" style="width:100px;height:100px" /></th>
+                <th>@item.Name</th>
+                <th>@item.Price</th>
+                <th>@item.Count</th>
+                <th> @((item.Price * item.Count).ToString("c"))</th>
+                <th><a asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"> </i></a></th>
+            </tr>
+        }
+      
+        <tr>
+            <th>
+             
+               Total ofAmount =  @Model.Sum(x=>x.Count*x.Price)
+            </th>
+        </tr>
+       
+
+
+
+    </tbody>
+</table>
