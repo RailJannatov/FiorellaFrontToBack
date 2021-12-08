@@ -41,7 +41,10 @@ namespace FiorellaFrontoBack.Controllers
         }
         public async Task<IActionResult> Delete(int? id)
         {
-
+            if(id == null)
+            {
+                return NotFound();
+            }
             var basket = Request.Cookies["basket"];
             var basketViewModel = JsonConvert.DeserializeObject<List<BasketViewModel>>(basket);
             var deletedItem = basketViewModel.Find(x=>x.Id == id);
