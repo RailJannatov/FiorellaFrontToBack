@@ -1,0 +1,42 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Create Category</h4>
+                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Photo">Image</label>
+                        <input class="form-control" asp-for="Photo">
+                        <span class="text-danger" asp-validation-for="Photo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Title">Title</label>
+                        <input class="form-control" asp-for="Title">
+                        <span class="text-danger" asp-validation-for="Title"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Subtitle">Subtitle</label>
+                        <input class="form-control" asp-for="Subtitle">
+                        <span class="text-danger" asp-validation-for="Subtitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Date">Date</label>
+                        <input class="form-control" asp-for="Date">
+                        <span class="text-danger" asp-validation-for="Date"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary mr-2"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>   <a class="btn btn-light" asp-action="Index">Cancel</a>  </div>
+  
+</div>
+
+

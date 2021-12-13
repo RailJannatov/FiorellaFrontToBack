@@ -15,5 +15,6 @@ namespace FiorellaFrontoBack.ViewModels
         public BlogTitle BlogTitle { get; set; }
         public FlowerTitle  FlowerTitle { get; set; }
         public List<FlowerItem> FlowerItems { get; set; }
+        public List<Blog> Blogs { get; set; }
     }
 }

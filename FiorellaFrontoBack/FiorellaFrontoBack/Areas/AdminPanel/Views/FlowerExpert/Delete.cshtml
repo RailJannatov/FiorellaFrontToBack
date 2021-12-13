@@ -1,0 +1,26 @@
+﻿
+
+@model FlowerItem
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <p> <img src="~/img/@Model.ImageName" style="height:100px;width:100px;"/></p>
+            <div class="card-body">
+                <h4 class="card-title">@Model.ExpertName</h4>
+                <p>
+                    @Model.ExpertProfession
+                </p>
+                <span>  Are you suree brooo?</span>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" asp-action="Index">Go Back</a>
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+

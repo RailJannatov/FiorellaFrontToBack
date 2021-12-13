@@ -39,7 +39,7 @@ namespace FiorellaFrontoBack.Controllers
             }
             );
         }
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if(id == null)
             {
@@ -47,7 +47,11 @@ namespace FiorellaFrontoBack.Controllers
             }
             var basket = Request.Cookies["basket"];
             var basketViewModel = JsonConvert.DeserializeObject<List<BasketViewModel>>(basket);
-            var deletedItem = basketViewModel.Find(x=>x.Id == id);
+            var deletedItem =  basketViewModel.Find(x=>x.Id == id);
+            if(deletedItem == null)
+            {
+                return NotFound();
+            }
             basketViewModel.Remove(deletedItem);
             basket = JsonConvert.SerializeObject(basketViewModel);
             Response.Cookies.Append("basket", basket);
@@ -63,10 +67,10 @@ namespace FiorellaFrontoBack.Controllers
             }
           
             var newBasket = new List<BasketViewModel>();
-            var basketViewModel = JsonConvert.DeserializeObject<List<BasketViewModel>>(basket);
+            var basketViewModel =  JsonConvert.DeserializeObject<List<BasketViewModel>>(basket);
             foreach(var item in basketViewModel)
             {
-                var existItemInDatabase =   _dbcontext.Products.Find(item.Id);
+                var existItemInDatabase = await _dbcontext.Products.FindAsync(item.Id);
                 if (existItemInDatabase == null)
                     continue;
 

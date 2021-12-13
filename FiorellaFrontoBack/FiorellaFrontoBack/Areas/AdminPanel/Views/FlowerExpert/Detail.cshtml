@@ -1,0 +1,25 @@
+﻿@model FlowerItem
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body ">
+                @ViewBag = ~/img/@Model.ImageName;
+                <div class="mt-5" style="text-align:center;"> <img src="~/img/@Model.ImageName" style="height:100px;width:100px;" /> </div>
+                <h4 class="card-title" style="border:2px solid gray; text-align:center; padding:10px;">@Model.ExpertName</h4>
+                <p style="border:2px solid gray; text-align:center; padding:10px;">
+                    @Model.ExpertProfession
+                </p>
+                <div style="text-align:center">
+                    <a class="btn btn-primary" asp-controller="FlowerExpert" asp-action="Index">Go back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,3 +1,4 @@
+using FiorellaFrontoBack.Areas.AdminPanel.Data;
 using FiorellaFrontoBack.DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,9 +18,11 @@ namespace FiorellaFrontoBack
     public class Startup
     {
         public readonly IConfiguration _iconfiguration;
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _environment;
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             _iconfiguration = configuration;
+            _environment = environment;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -30,6 +34,7 @@ namespace FiorellaFrontoBack
             }
             );
             services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            Constants.ImageFolderPath = Path.Combine(_environment.WebRootPath, "img");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,8 +45,11 @@ namespace FiorellaFrontoBack
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                
             });
+
         }
     }
 }

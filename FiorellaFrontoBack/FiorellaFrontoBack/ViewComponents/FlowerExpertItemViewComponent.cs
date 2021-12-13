@@ -16,7 +16,7 @@ namespace FiorellaFrontoBack.ViewComponents
             _dbcontext = dbContext;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int take  = 4)
+        public async Task<IViewComponentResult> InvokeAsync(int take  = 3)
         {
             var flowerItems = await _dbcontext.FlowerItems.Take(take).ToListAsync();
             return View(flowerItems);
