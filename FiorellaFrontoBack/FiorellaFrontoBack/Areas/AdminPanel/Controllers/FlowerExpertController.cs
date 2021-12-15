@@ -57,6 +57,8 @@ namespace FiorellaFrontoBack.Areas.AdminPanel.Controllers
                 ModelState.AddModelError("ExpertName", "Bele bir expertimiz artiq var");
                 return View();
             }
+          
+             
 
             var fileName = await FileUtil.GenerateFile(Constants.ImageFolderPath, flowerItem.Photo);
 
@@ -174,7 +176,10 @@ namespace FiorellaFrontoBack.Areas.AdminPanel.Controllers
                     ModelState.AddModelError("Photo", "Photo 4mbdan boyukdur");
                     return View();
                 }
-            
+                var fileName = await FileUtil.GenerateFile(Constants.ImageFolderPath, flowerItem.Photo);
+                flowerItem.ImageName = fileName;
+                updatedItem.ImageName = fileName;
+
 
             }          
             var existFlowerExpert = await _dbcontext.FlowerItems.AnyAsync(x => x.ExpertName.ToLower() == flowerItem.ExpertName.ToLower() && x.Id != flowerItem.Id);
@@ -184,10 +189,9 @@ namespace FiorellaFrontoBack.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            var fileName = await FileUtil.GenerateFile(Constants.ImageFolderPath, flowerItem.Photo);
+          
 
-            flowerItem.ImageName = fileName;
-            updatedItem.ImageName = fileName;
+         
             updatedItem.ExpertName = flowerItem.ExpertName;
             updatedItem.ExpertProfession = flowerItem.ExpertProfession;
             await _dbcontext.SaveChangesAsync();

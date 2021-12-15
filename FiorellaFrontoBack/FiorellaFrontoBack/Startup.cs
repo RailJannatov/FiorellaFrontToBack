@@ -1,8 +1,10 @@
 using FiorellaFrontoBack.Areas.AdminPanel.Data;
 using FiorellaFrontoBack.DataAccessLayer;
+using FiorellaFrontoBack.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,11 +30,25 @@ namespace FiorellaFrontoBack
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = _iconfiguration.GetConnectionString("DefaultConnection");
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+            });
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
             }
             );
+            services.AddIdentity<User, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+
+            }).AddEntityFrameworkStores<AppDbContext>().AddErrorDescriber<IdentityErrorResult>().AddDefaultTokenProviders();
+
+
             services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             Constants.ImageFolderPath = Path.Combine(_environment.WebRootPath, "img");
         }
@@ -42,6 +58,9 @@ namespace FiorellaFrontoBack
            
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseSession();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
