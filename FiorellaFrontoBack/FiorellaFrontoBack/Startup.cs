@@ -1,3 +1,4 @@
+using EmailService;
 using FiorellaFrontoBack.Areas.AdminPanel.Data;
 using FiorellaFrontoBack.DataAccessLayer;
 using FiorellaFrontoBack.Models;
@@ -29,6 +30,12 @@ namespace FiorellaFrontoBack
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var emailConfig = _iconfiguration
+            .GetSection("EmailConfiguration")
+            .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailSender, EmailSender>();
+           
             var connectionString = _iconfiguration.GetConnectionString("DefaultConnection");
             services.AddSession(options =>
             {
@@ -36,17 +43,29 @@ namespace FiorellaFrontoBack
             });
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(connectionString, builder =>
+                 {
+                     builder.MigrationsAssembly(nameof(FiorellaFrontoBack));
+                 });
             }
-            );
-            services.AddIdentity<User, IdentityRole>(options =>
-            {
-                options.Password.RequiredLength = 8;
-                options.User.RequireUniqueEmail = true;
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
 
-            }).AddEntityFrameworkStores<AppDbContext>().AddErrorDescriber<IdentityErrorResult>().AddDefaultTokenProviders();
+            );
+                services.Configure<DataProtectionTokenProviderOptions>(options =>
+                options.TokenLifespan = TimeSpan.FromHours(2));
+                services.AddIdentity<User, IdentityRole>(options =>
+                {
+                         options.Password.RequiredLength = 8;
+                         options.User.RequireUniqueEmail = true;
+                         options.Lockout.MaxFailedAccessAttempts = 5;
+                         options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                         options.Password.RequireDigit = false;
+                         options.Password.RequireUppercase = false;
+                         options.User.RequireUniqueEmail = true;
+
+                 })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddErrorDescriber<IdentityErrorResult>()
+                .AddDefaultTokenProviders();
 
 
             services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

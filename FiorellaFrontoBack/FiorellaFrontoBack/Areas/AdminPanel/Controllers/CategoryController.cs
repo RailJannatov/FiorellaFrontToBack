@@ -1,5 +1,6 @@
 ﻿using FiorellaFrontoBack.DataAccessLayer;
 using FiorellaFrontoBack.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 namespace FiorellaFrontoBack.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize(Roles = "Admin")]
+    
     public class CategoryController : Controller
     {
         private readonly AppDbContext _dbContext;

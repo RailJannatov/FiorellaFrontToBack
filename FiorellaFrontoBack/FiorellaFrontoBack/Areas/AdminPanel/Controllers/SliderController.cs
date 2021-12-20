@@ -1,5 +1,7 @@
-﻿using FiorellaFrontoBack.DataAccessLayer;
+﻿using FiorellaFrontoBack.Areas.AdminPanel.Data;
+using FiorellaFrontoBack.DataAccessLayer;
 using FiorellaFrontoBack.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 namespace FiorellaFrontoBack.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize(Roles = RoleConstants.AdminRole )]
     public class SliderController : Controller
     {
         private readonly AppDbContext _dbcontext;

@@ -1,5 +1,6 @@
 ﻿using FiorellaFrontoBack.DataAccessLayer;
 using FiorellaFrontoBack.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace FiorellaFrontoBack.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize(Roles = "Admin")]
     public class BlogController : Controller
     {
         private readonly AppDbContext _dbcontext;

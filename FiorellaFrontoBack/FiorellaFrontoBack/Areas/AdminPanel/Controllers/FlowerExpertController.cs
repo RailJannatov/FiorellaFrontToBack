@@ -1,6 +1,7 @@
 ﻿using FiorellaFrontoBack.Areas.AdminPanel.Data;
 using FiorellaFrontoBack.DataAccessLayer;
 using FiorellaFrontoBack.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace FiorellaFrontoBack.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
+    [Authorize(Roles = "Admin")]
     public class FlowerExpertController : Controller
     {
         private readonly AppDbContext _dbcontext;
